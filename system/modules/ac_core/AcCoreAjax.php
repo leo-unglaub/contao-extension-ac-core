@@ -45,7 +45,7 @@ class AcCoreAjax extends Controller
 			if ($this->Input->get('acid') == '')
 			{
 				header('HTTP/1.1 412 Precondition Failed');
-				die('Invalid AC call, mission the acid');
+				die('Invalid AC call, missing the get parameter "acid"');
 			}
 
 			// run the hook
@@ -56,7 +56,13 @@ class AcCoreAjax extends Controller
 				foreach ($GLOBALS['TL_HOOKS']['getAutoCompleterChoices'] as $callback)
 				{
 					$this->import($callback[0]);
-					$arrKeywords[] = $this->$callback[0]->$callback[1]();
+					$arrReturn = $this->$callback[0]->$callback[1]();
+
+					// only if we have an array we add the result to the ajax response
+					if (is_array($arrReturn))
+					{
+						$arrKeywords[] = $arrReturn;
+					}
 				}
 
 				return json_encode($arrKeywords);
