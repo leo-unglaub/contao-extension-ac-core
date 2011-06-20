@@ -182,8 +182,4 @@ class AutoCompleter extends Controller
 	}
 
 }
-
-
-
-
 ?>
