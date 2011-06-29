@@ -28,16 +28,24 @@
  * @filesource
  */
 
-
+/**
+ * Class AcCoreAjax
+ * 
+ * Contains methods to catch ajax calls for the auto completer and 
+ * pass them to the Hook "getAutoCompleterChoices"
+ * 
+ * @copyright  Leo Unglaub 2011
+ * @author     Leo Unglaub <leo@leo-unglaub.net>
+ * @package    ac_core
+ */
 class AcCoreAjax extends Controller
 {
 	/**
-	 * manage all ajax calls for the auto completer
+	 * Manage all ajax calls for the auto completer
+	 * @return mixed
 	 */
 	public function manageAjaxCals()
 	{
-		$this->import('Input');
-
 		// only work on "ac" ajax calls
 		if ($this->Input->get('mode') == 'ac')
 		{

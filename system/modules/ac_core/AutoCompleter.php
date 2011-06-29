@@ -57,8 +57,19 @@ class AutoCompleter extends Controller
 	(
 		'minLength', 'markQuery', 'width', 'maxChoices', 'visibleChoices', 'className', 'zIndex', 'delay', 'autoSubmit', 'overflow', 
 		'overflowMargin', 'selectFirst', 'forceSelect', 'selectMode', 'multiple', 'separator', 'autoTrim', 'allowDupes', 'cache',
-		'relative'
+		'relative', 'indicatorClass'
 	);
+
+
+	/**
+	 * Set some default parameters and call the
+	 * parent cunstructor
+	 */
+	public function __construct()
+	{
+		$this->indicatorClass = 'autocompleter-loading';
+		parent::__construct();
+	}
 
 
 	/**
@@ -163,9 +174,15 @@ class AutoCompleter extends Controller
 			{
 				$strConfig .= "'$k': " . 'null,';
 				continue;
-			}					
+			}
 
-			$strConfig .= "'$k': " . $v . ',';
+			if (is_int($v))
+			{
+				$strConfig .= "'$k': " . $v . ',';
+				continue;
+			}
+
+			$strConfig .= "'$k': '" . $v . "',";
 		}
 
 		// add the additional options
@@ -177,8 +194,9 @@ class AutoCompleter extends Controller
 			$strConfig = substr($strConfig, 0, -1);
 		}
 
+
 		// add the new auto completer js instance to the site header
-		$GLOBALS['TL_HEAD'][] = '<script type="text/javascript">/* <![CDATA[ */ document.addEvent(\'domready\',function(){new Autocompleter.Request.JSON(\'' . $this->strFormId . '\',\'ajax.php?mode=ac&acid=' . $this->strFormId . '\',' . $strConfig . ');}); /* ]]> */></script>';
+		$GLOBALS['TL_HEAD'][] = '<script type="text/javascript">/* <![CDATA[ */ document.addEvent(\'domready\',function(){new Autocompleter.Request.JSON(\'' . $this->strFormId . '\',\'ajax.php?mode=ac&acid=' . $this->strFormId . '\',{' . $strConfig . '});}); /* ]]> */</script>';
 	}
 
 }
