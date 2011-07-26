@@ -69,7 +69,7 @@ class AcCoreAjax extends Controller
 					// only if we have an array we add the result to the ajax response
 					if (is_array($arrReturn))
 					{
-						$arrKeywords[] = $arrReturn;
+						$arrKeywords = array_merge($arrKeywords, $arrReturn);
 					}
 				}
 
