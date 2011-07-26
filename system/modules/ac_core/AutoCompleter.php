@@ -210,7 +210,7 @@ class AutoCompleter extends Controller
 
 
 		// add the new auto completer js instance to the site header
-		$GLOBALS['TL_HEAD'][] = '<script type="text/javascript">/* <![CDATA[ */ document.addEvent(\'domready\',function(){new Autocompleter.Request.JSON(\'' . $this->strFormId . '\',\'ajax.php?mode=ac&acid=' . $this->strFormId . $this->strUrlAdditional '\',{' . $strConfig . '});}); /* ]]> */</script>';
+		$GLOBALS['TL_HEAD'][] = '<script type="text/javascript">/* <![CDATA[ */ document.addEvent(\'domready\',function(){new Autocompleter.Request.JSON(\'' . $this->strFormId . '\',\'ajax.php?mode=ac&acid=' . $this->strFormId . $this->strUrlAdditional . '\',{' . $strConfig . '});}); /* ]]> */</script>';
 	}
 
 }
