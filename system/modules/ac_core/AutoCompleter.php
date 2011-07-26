@@ -50,6 +50,12 @@ class AutoCompleter extends Controller
 	protected $strConfigAdditional;
 
 	/**
+	 * additional url parameter
+	 * @var string
+	 */
+	protected $strUrlAdditional;
+
+	/**
 	 * Contain all valid and supported config options
 	 * @var array
 	 */
@@ -91,6 +97,10 @@ class AutoCompleter extends Controller
 				$this->strConfigAdditional = $varValue;
 				break;
 
+			case 'urlAdditional':
+				$this->strUrlAdditional = $varValue;
+				break;
+
 			default:
 				// if $strKey is a valid config option, set them
 				if (in_array($strKey, $this->arrConfigOptions))
@@ -120,6 +130,10 @@ class AutoCompleter extends Controller
 
 			case 'configAdditional':
 				return $this->strConfigAdditional;
+				break;
+
+			case 'urlAdditional':
+				return $this->strUrlAdditional;
 				break;
 
 			default:
@@ -196,7 +210,7 @@ class AutoCompleter extends Controller
 
 
 		// add the new auto completer js instance to the site header
-		$GLOBALS['TL_HEAD'][] = '<script type="text/javascript">/* <![CDATA[ */ document.addEvent(\'domready\',function(){new Autocompleter.Request.JSON(\'' . $this->strFormId . '\',\'ajax.php?mode=ac&acid=' . $this->strFormId . '\',{' . $strConfig . '});}); /* ]]> */</script>';
+		$GLOBALS['TL_HEAD'][] = '<script type="text/javascript">/* <![CDATA[ */ document.addEvent(\'domready\',function(){new Autocompleter.Request.JSON(\'' . $this->strFormId . '\',\'ajax.php?mode=ac&acid=' . $this->strFormId . $this->strUrlAdditional '\',{' . $strConfig . '});}); /* ]]> */</script>';
 	}
 
 }
