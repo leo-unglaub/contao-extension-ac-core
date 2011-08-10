@@ -44,7 +44,7 @@ class AcCoreAjax extends Controller
 	 * Manage all ajax calls for the auto completer
 	 * @return mixed
 	 */
-	public function manageAjaxCals()
+	public function manageAjaxCalls()
 	{
 		// only work on "ac" ajax calls
 		if ($this->Input->get('mode') == 'ac')

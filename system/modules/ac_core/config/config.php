@@ -31,5 +31,5 @@
 /**
  * Hooks
  */
-$GLOBALS['TL_HOOKS']['dispatchAjax'][] = array('AcCoreAjax', 'manageAjaxCals');
+$GLOBALS['TL_HOOKS']['dispatchAjax'][] = array('AcCoreAjax', 'manageAjaxCalls');
 ?>
