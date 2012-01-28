@@ -21,7 +21,7 @@
  * Software Foundation website at <http://www.gnu.org/licenses/>.
  *
  * PHP version 5
- * @copyright  Leo Unglaub 2011
+ * @copyright  Leo Unglaub 2012
  * @author     Leo Unglaub <leo@leo-unglaub.net>
  * @package    ac_core
  * @license    LGPL
@@ -34,7 +34,7 @@
  * Contains methods to catch ajax calls for the auto completer and 
  * pass them to the Hook "getAutoCompleterChoices"
  * 
- * @copyright  Leo Unglaub 2011
+ * @copyright  Leo Unglaub 2012
  * @author     Leo Unglaub <leo@leo-unglaub.net>
  * @package    ac_core
  */
