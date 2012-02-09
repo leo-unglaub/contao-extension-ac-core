@@ -217,10 +217,21 @@ class AutoCompleter extends Controller
 		}
 
 
-		// add the new auto completer js instance to the site header
-		$GLOBALS['TL_HEAD'][] = '<script type="text/javascript">/* <![CDATA[ */ document.addEvent(\'domready\',function(){new Autocompleter.Request.JSON(\'' . $this->strFormId . '\',\'ajax.php?mode=ac&acid=' . $this->strFormId . $this->strUrlAdditional . '\',{' . $strConfig . '});}); /* ]]> */</script>';
-	}
+		$strBuild = 'document.addEvent(\'domready\',function(){new Autocompleter.Request.JSON(\'' . $this->strFormId . '\',\'ajax.php?mode=ac&acid=' . $this->strFormId . $this->strUrlAdditional . '\',{' . $strConfig . '});});';
+		global $objPage;
 
+		// add an old xhtml version if we are in the frontend and the outputFormat is not HTML5
+		if (TL_MODE == 'FE' && $objPage->outputFormat != 'html5')
+		{
+			// add the new auto completer js instance to the site header
+			$GLOBALS['TL_HEAD'][] = '<script type="text/javascript">/* <![CDATA[ */ ' . $strBuild . ' /* ]]> */</script>';
+
+			return;
+		}
+		
+		// add the HTML5 version
+		$GLOBALS['TL_HEAD'][] = '<script>' . $strBuild . '</script>';
+	}
 }
 
 ?>
