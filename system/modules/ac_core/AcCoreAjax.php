@@ -28,6 +28,7 @@
  * @filesource
  */
 
+
 /**
  * Class AcCoreAjax
  * 
@@ -42,7 +43,9 @@ class AcCoreAjax extends Controller
 {
 	/**
 	 * Manage all ajax calls for the auto completer
-	 * @return mixed
+	 * 
+	 * @param void
+	 * @return string|bool
 	 */
 	public function manageAjaxCalls()
 	{
