@@ -79,8 +79,6 @@ class AcCoreAjax extends Controller
 				return json_encode($arrKeywords);
 			}
 		}
-
-		return false;
 	}
 }
 
