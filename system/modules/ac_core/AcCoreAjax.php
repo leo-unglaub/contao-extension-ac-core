@@ -76,7 +76,9 @@ class AcCoreAjax extends Controller
 					}
 				}
 
-				return json_encode($arrKeywords);
+				header('Content-Type: application/json');
+				echo json_encode($arrKeywords);
+				exit;
 			}
 		}
 	}
