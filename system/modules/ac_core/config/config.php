@@ -28,8 +28,10 @@
  * @filesource
  */
 
+
 /**
  * Hooks
  */
-$GLOBALS['TL_HOOKS']['dispatchAjax'][] = array('AcCoreAjax', 'manageAjaxCalls');
+$GLOBALS['TL_HOOKS']['simpleAjax'][] = array('AcCoreAjax', 'manageAjaxCalls');
+
 ?>

@@ -217,7 +217,7 @@ class AutoCompleter extends Controller
 		}
 
 
-		$strBuild = 'document.addEvent(\'domready\',function(){new Autocompleter.Request.JSON(\'' . $this->strFormId . '\',\'ajax.php?mode=ac&acid=' . $this->strFormId . $this->strUrlAdditional . '\',{' . $strConfig . '});});';
+		$strBuild = 'document.addEvent(\'domready\',function(){new Autocompleter.Request.JSON(\'' . $this->strFormId . '\',\'SimpleAjax.php?mode=ac&acid=' . $this->strFormId . $this->strUrlAdditional . '\',{' . $strConfig . '});});';
 		global $objPage;
 
 		// add an old xhtml version if we are in the frontend and the outputFormat is not HTML5
