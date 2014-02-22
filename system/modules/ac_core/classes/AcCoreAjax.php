@@ -27,10 +27,10 @@ class AcCoreAjax extends Controller
 	public function manageAjaxCalls()
 	{
 		// only work on "ac" ajax calls
-		if ($this->Input->get('mode') == 'ac')
+		if (Input::get('mode') == 'ac')
 		{
 			// stop if there is no acid
-			if ($this->Input->get('acid') == '')
+			if (Input::get('acid') == '')
 			{
 				header('HTTP/1.1 412 Precondition Failed');
 				die('Invalid AC call, missing the get parameter "acid"');
