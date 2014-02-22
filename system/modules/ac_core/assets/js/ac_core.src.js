@@ -61,7 +61,7 @@ var Autocompleter = new Class({
 		this.element = $(element);
 		this.setOptions(options);
 		this.build();
-		this.observer = new Observer(this.element, this.prefetch.bind(this), $merge({
+		this.observer = new Observer(this.element, this.prefetch.bind(this), Object.merge({
 			'delay': this.options.delay
 		}, this.options.observerOptions));
 		this.queryValue = null;
@@ -98,16 +98,17 @@ var Autocompleter = new Class({
 		if (!this.options.separator.test(this.options.separatorSplit)) {
 			this.options.separatorSplit = this.options.separator;
 		}
-		this.fx = (!this.options.fxOptions) ? null : new Fx.Tween(this.choices, $merge({
+		this.fx = (!this.options.fxOptions) ? null : new Fx.Tween(this.choices, Object.merge({
 			'property': 'opacity',
 			'link': 'cancel',
 			'duration': 200
 		}, this.options.fxOptions)).addEvent('onStart', Chain.prototype.clearChain).set(0);
 		this.element.setProperty('autocomplete', 'off')
-			.addEvent((Browser.Engine.trident || Browser.Engine.webkit) ? 'keydown' : 'keypress', this.onCommand.bind(this))
-			.addEvent('click', this.onCommand.bind(this, [false]))
-			.addEvent('focus', this.toggleFocus.create({bind: this, arguments: true, delay: 100}))
-			.addEvent('blur', this.toggleFocus.create({bind: this, arguments: false, delay: 100}));
+			.addEvent((Browser.ie || Browser.chrome) ? 'keydown' : 'keypress', this.onCommand.bind(this))
+			.addEvent('click', this.onCommand.bind(this, [false]));
+// TODO: Check this mess https://github.com/mootools/mootools-core/wiki/Upgrade-from-1.2-to-1.3-or-1.4
+//			.addEvent('focus', this.toggleFocus.create({bind: this, arguments: true, delay: 100}))
+//			.addEvent('blur', this.toggleFocus.create({bind: this, arguments: false, delay: 100}));
 	},
 
 	destroy: function() {
@@ -278,7 +279,7 @@ var Autocompleter = new Class({
 	update: function(tokens) {
 		this.choices.empty();
 		this.cached = tokens;
-		var type = tokens && $type(tokens);
+		var type = tokens && typeOf(tokens);
 		if (!type || (type == 'array' && !tokens.length) || (type == 'hash' && !tokens.getLength())) {
 			(this.options.emptyChoices || this.hideChoices).call(this);
 		} else {
@@ -355,7 +356,7 @@ var Autocompleter = new Class({
 var OverlayFix = new Class({
 
 	initialize: function(el) {
-		if (Browser.Engine.trident) {
+		if (Browser.ie) {
 			this.element = $(el);
 			this.relative = this.element.getOffsetParent();
 			this.fix = new Element('iframe', {
@@ -399,7 +400,7 @@ var OverlayFix = new Class({
 Element.implement({
 
 	getSelectedRange: function() {
-		if (!Browser.Engine.trident) return {start: this.selectionStart, end: this.selectionEnd};
+		if (!Browser.ie) return {start: this.selectionStart, end: this.selectionEnd};
 		var pos = {start: 0, end: 0};
 		var range = this.getDocument().selection.createRange();
 		if (!range || range.parentElement() != this) return pos;
@@ -420,7 +421,7 @@ Element.implement({
 	},
 
 	selectRange: function(start, end) {
-		if (Browser.Engine.trident) {
+		if (Browser.ie) {
 			var diff = this.value.substr(start, end - start).replace(/\r/g, '').length;
 			start = this.value.substr(0, start).replace(/\r/g, '').length;
 			var range = this.createTextRange();
@@ -509,7 +510,7 @@ Autocompleter.Request = new Class({
 	},
 
 	query: function(){
-		var data = $unlink(this.options.postData) || {};
+		var data = Object.clone(this.options.postData) || {};
 		data[this.options.postVar] = this.queryValue;
 		var indicator = $(this.options.indicator);
 		if (indicator) indicator.setStyle('display', '');
@@ -540,7 +541,7 @@ Autocompleter.Request.JSON = new Class({
 
 	initialize: function(el, url, options) {
 		this.parent(el, options);
-		this.request = new Request.JSON($merge({
+		this.request = new Request.JSON(Object.merge({
 			'url': url,
 			'link': 'cancel'
 		}, this.options.ajaxOptions)).addEvent('onComplete', this.queryResponse.bind(this));
@@ -559,7 +560,7 @@ Autocompleter.Request.HTML = new Class({
 
 	initialize: function(el, url, options) {
 		this.parent(el, options);
-		this.request = new Request.HTML($merge({
+		this.request = new Request.HTML(Object.merge({
 			'url': url,
 			'link': 'cancel',
 			'update': this.choices
@@ -642,7 +643,7 @@ var Observer = new Class({
 	},
 
 	clear: function() {
-		$clear(this.timeout || null);
+		clearTimeout(this.timeout);
 		return this;
 	},
 
