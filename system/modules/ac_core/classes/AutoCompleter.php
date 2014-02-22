@@ -146,11 +146,11 @@ class AutoCompleter extends Controller
 		// add the auto completer core to the site header
 		if ($GLOBALS['TL_CONFIG']['debugMode'] === true || $GLOBALS['TL_CONFIG']['displayErrors'] === true)
 		{
-			$GLOBALS['TL_JAVASCRIPT'][] = 'system/modules/ac_core/html/ac_core.src.js';
+			$GLOBALS['TL_JAVASCRIPT'][] = 'system/modules/ac_core/assets/js/ac_core.src.js';
 		}
 		else
 		{
-			$GLOBALS['TL_JAVASCRIPT'][] = 'system/modules/ac_core/html/ac_core.js';
+			$GLOBALS['TL_JAVASCRIPT'][] = 'system/modules/ac_core/assets/js/ac_core.js';
 		}
 
 		// prepare the config
