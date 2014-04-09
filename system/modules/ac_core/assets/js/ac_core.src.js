@@ -648,7 +648,7 @@ var Observer = new Class({
 	},
 
 	pause: function(){
-		if (this.timer) $clear(this.timer);
+		if (this.timer) clearInterval(this.timer);
 		else this.element.removeEvent('keyup', this.bound);
 		return this.clear();
 	},
