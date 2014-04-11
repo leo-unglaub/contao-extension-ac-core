@@ -296,7 +296,7 @@ var Autocompleter = new Class({
 	choiceOver: function(choice, selection) {
 		if (!choice || choice == this.selected) return;
 		if (this.selected) this.selected.removeClass('autocompleter-selected');
-		this.selected = choice.addClass('autocompleter-selected');
+		this.selected = choice[0].addClass('autocompleter-selected');
 		this.fireEvent('onSelect', [this.element, this.selected, selection]);
 		if (!this.selectMode) this.opted = this.element.value;
 		if (!selection) return;
